@@ -1,30 +1,45 @@
-/**
- * @generated SignedSource<<7432153e3d5a1b5eeef643697a3899bc>>
- * @lightSyntaxTransform
- * @nogrep
- */
-
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from 'relay-runtime';
+import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
-export type AppQuery$variables = {};
-export type AppQuery$data = {
-  readonly allFilms: {
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"Film_film">;
-      } | null;
-    } | null> | null;
-  } | null;
+export type AppQueryVariables = {};
+export type AppQueryResponse = {
+    readonly allFilms: {
+        readonly edges: ReadonlyArray<{
+            readonly node: {
+                readonly id: string;
+                readonly " $fragmentRefs": FragmentRefs<"Film_film">;
+            } | null;
+        } | null> | null;
+    } | null;
 };
 export type AppQuery = {
-  variables: AppQuery$variables;
-  response: AppQuery$data;
+    readonly response: AppQueryResponse;
+    readonly variables: AppQueryVariables;
 };
+
+
+
+/*
+query AppQuery {
+  allFilms {
+    edges {
+      node {
+        id
+        ...Film_film
+      }
+    }
+  }
+}
+
+fragment Film_film on Film {
+  id
+  title
+}
+*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -143,7 +158,5 @@ return {
   }
 };
 })();
-
-(node as any).hash = "597d8f3b039867cadf6b16d69f4e1079";
-
+(node as any).hash = '597d8f3b039867cadf6b16d69f4e1079';
 export default node;
