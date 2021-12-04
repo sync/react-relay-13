@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useLazyLoadQuery, graphql } from "react-relay";
 import { AppQuery } from "./__generated__/AppQuery.graphql";
+import Film from "./Film";
 
 const App = () => {
   const data = useLazyLoadQuery<AppQuery>(
@@ -11,7 +12,7 @@ const App = () => {
           edges {
             node {
               id
-              title
+              ...Film_film
             }
           }
         }
@@ -20,7 +21,9 @@ const App = () => {
     {}
   );
 
-  const films = data.allFilms?.edges ?? [];
+  const films = (data.allFilms?.edges ?? [])
+    .map((edge) => edge?.node)
+    .filter(Boolean);
 
   return (
     <div className="App">
@@ -29,7 +32,7 @@ const App = () => {
         <p>Found films</p>
         <ul>
           {films.map((film) => (
-            <li key={film?.node?.id}>{film?.node?.title}</li>
+            <Film key={film?.id} film={film ?? null} />
           ))}
         </ul>
       </header>
